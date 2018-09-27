@@ -1,0 +1,2595 @@
+<html>
+    <head>
+       
+              <img src="logo.png" style="width:120px;height:120px;  "  >  <h1>Admin</h1>
+        
+          <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+       <script src="https://www.w3schools.com/lib/w3.js"></script>
+       <script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.3.0/firebase-firestore.js"></script>
+           <script>
+              
+                var syglobal;
+               var sem;
+                var enrollees = 0;
+                var applicants = 0;
+               var enrolled = 0;
+        </script>
+           <script type="text/javascript">
+          
+            function codeAddress() {
+                document.getElementById('sem').value = "";
+        
+          
+                var div1 = document.getElementById('sy');
+                var div2 = document.getElementById('batch');
+                var div3 = document.getElementById('course');
+                var div4 = document.getElementById('headings');
+                var div5 = document.getElementById('registrar');
+                var btn = document.getElementById('btnopenclose');
+                var btnbatchcourse = document.getElementById('openbatch');
+                 var div6 = document.getElementById('sectionsched');
+                 var div7 = document.getElementById('announce');
+                var lbl1 =   document.getElementById('labalsy');
+              
+                var courseselect = document.getElementById('courseselect');
+             
+                var secselect = document.getElementById('secselect');
+                var mySelect = document.getElementById('mySelect');
+                courseselect.value="";
+               
+                var temp;
+                 sem = "";
+                    btn.textContent= "Open SEM";   
+                    div1.style.display = "none";
+                    div2.style.display = "none";
+                    div3.style.display = "none";
+                    div4.style.display = "none";
+                    div5.style.display = "none";
+                    div6.style.display = "none";
+                div7.style.display = "none";
+                 mySelect.style.display = "none";
+                    btnbatchcourse.style.display = "inline";
+                   db.collection("studentForms").get()
+                       .then(function(querySnapshot) {
+                       querySnapshot.forEach(function(doc) {
+                           db.collection('studentForms').doc(doc.id).update({
+                               Print:"NO",
+                           });
+                       });
+                   });
+   db.collection("SY").get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+           
+        if(doc.data().status === "open")
+            {
+               syglobal=doc.data().schoolyear;
+                 sem=doc.data().semester;
+               lbl1.textContent= syglobal;
+           
+                var year = syglobal.substr(0, 4);
+                 document.getElementById('year').value = year;
+                 btn.textContent= "Close SEM";    
+                btnbatchcourse.style.display = "inline";
+          
+                 div1.style.display = "none";
+                 div3.style.display = "none";
+                 div4.style.display = "block";
+
+                
+    
+                if(doc.data().semester === "1st")
+                    {
+                        div2.style.display = "block";
+                        var option1 = document.createElement("option");
+                        var option2 = document.createElement("option");
+                        var option3= document.createElement("option");
+                        mySelect.style.display = "block";
+                        mySelect.options.length = 0;
+                        option1.text = "Batch Scheduling";
+                        option2.text = "Course Adding"; 
+             
+                        mySelect.add(option1);
+                        mySelect.add(option2);
+                
+                    }
+                else
+                    {
+                        div2.style.display = "none";
+                        div6.style.display = "none";
+                      
+                        mySelect.style.display = "none";
+                     
+                    }
+                
+       
+     
+          
+                
+              
+            }
+   
+        });
+    });
+  
+            }
+        
+
+  window.onload = codeAddress;
+           
+       </script>  
+  
+      <style>
+          
+        body{
+    background-color: #008000;
+    font-family: ubuntu;
+}
+
+   .textarea  {
+	width:100%;
+ 
+	box-sizing:border-box;
+	direction:ltr;
+	display:block;
+	max-width:100%;
+	line-height:1.5;
+	padding:15px 15px 30px;
+	border-radius:3px;
+	border:1px solid #F7E98D;
+	font:13px Tahoma, cursive;
+	transition:box-shadow 0.5s ease;
+	box-shadow:0 4px 6px rgba(0,0,0,0.1);
+ 
+ 
+}
+          
+     .in1 {
+    width: 9%;
+    padding: 8px 8px;
+      
+    margin: 5px 2;
+         text-align: center;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius:8px;
+         
+    box-sizing: border-box;
+}
+          
+           .in2 {
+    width: 38%;
+    padding: 8px 12px;
+    margin: 8px 0;
+         text-align: center;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+         
+    box-sizing: border-box;
+}
+                    
+           .in3 {
+    width: 60%;
+    padding: 8px 12px;
+    margin: 8px 0;
+         text-align: center;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+         
+    box-sizing: border-box;
+}
+         
+           .in4 {
+    width: 17%;
+    padding: 8px 8px;
+      
+    margin: 5px 2;
+         text-align: center;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius:8px;
+         
+    box-sizing: border-box;
+}
+           .in5 {
+    width: 11%;
+    padding: 8px 8px;
+      
+    margin: 5px 2;
+         text-align: center;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius:8px;
+         
+    box-sizing: border-box;
+}
+     .in6 {
+    width: 27%;
+    padding: 8px 8px;
+      
+    margin: 5px 2;
+         text-align: center;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius:8px;
+         
+    box-sizing: border-box;
+}   
+           .in7 {
+    width: 18%;
+    padding: 8px 8px;
+      
+    margin: 5px 2;
+         text-align: center;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius:8px;
+         
+    box-sizing: border-box;
+}   
+           .in8{
+    width: 3%;
+    padding: 8px 8px;
+      
+    margin: 5px 2;
+         text-align: center;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius:8px;
+         
+    box-sizing: border-box;
+}   
+            .in9{
+    width: 38%;
+    padding: 8px 8px;
+      
+    margin: 5px 2;
+         text-align: center;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius:8px;
+         
+    box-sizing: border-box;
+}   
+              .in10{
+    width: 19%;
+    padding: 8px 8px;
+      
+    margin: 5px 2;
+         text-align: center;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius:8px;
+         
+    box-sizing: border-box;
+}   
+              .in11{
+    width: 19%;
+    padding: 8px 8px;
+      
+    margin: 5px 2;
+         text-align: center;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius:8px;
+         
+    box-sizing: border-box;
+}   
+     
+h1{
+    color: #fff;
+    font-size: 128px;
+    letter-spacing: 4 px;
+    top:100px;
+    text-align: center; 
+}
+
+.content{
+    background: #fff;
+    max-width: 1280px;
+    margin: 30px auto;
+    padding:  20px 30px;
+    border-radius: 10px 120px 10px 10px;
+    box-shadow: 1px 3px 5px rgba(0,0,0,0.1)
+}
+
+ul{
+    list-style-type: none;
+    padding: 0;
+}
+ 
+
+          
+th, td {
+    padding: 8px;
+    text-align: left;
+        border: 3px solid darkgreen;
+    
+    border-bottom: 4px solid #000000;
+}
+
+.tr1:hover {background-color:silver;}
+
+table {
+ 
+    width: 100%;
+}
+
+ .labela:hover
+          {
+              color: white;
+              background-color: darkgreen;
+          }
+          .labela
+          {
+        border:10;
+    background-color:bisque;
+    border-radius: 15px;
+    padding: 4px;
+    
+ 
+ 
+          }
+          
+          
+ 
+ 
+ 
+  
+         
+form input{
+    float: left;
+    width: 38%;
+    margin: 0;
+    border: 0;
+    border-bottom: 1px solid #eee;
+    margin: 0 1%;
+    padding: 10px;
+    display: block;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+form input:focus{
+    outline: none;
+    border-bottom: 3px solid #88236f;
+    padding-bottom: 8px;
+     
+}
+
+form:after{
+    content: '';
+    clear: both;
+    display: block;
+}
+button{
+    border:6;
+    background-color:ghostwhite;
+    border-radius: 25px;
+    padding: 4px;
+    width: 9%;
+  
+    box-shadow: -1px 0px 1px rgba(0,0,0,0.1);
+    font-weight: bold;
+    font-family: ubuntu;
+    letter-spacing: 3px;
+    
+
+    cursor:  pointer;
+}
+        
+            button:hover,   button:focus
+          {
+               background-color: dimgrey;
+              color:white;
+              
+          }
+          
+.buttona{
+    border:6;
+    background-color:bisque ;
+    border-radius: 25px;
+    padding: 4px;
+    width: 9%;
+   right:0;
+    box-shadow: -1px 0px 1px rgba(0,0,0,0.1);
+    font-weight: bold;
+    font-family: ubuntu;
+    letter-spacing: 1px;
+    
+    cursor:  pointer;
+}
+        
+          
+          
+     .buttona:hover, .buttona:focus
+          {
+               background-color: #3e8e41;
+              color:white;
+              
+          }
+          
+          
+          
+ 
+          
+    .dropbtn {
+     border:6;
+    background-color:bisque ;
+    border-radius: 25px;
+    padding: 4px;
+    width: 15%;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+       color:white;
+}
+
+.dropdown {
+    float: right;
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width:70px;
+        border-radius: 28px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    right: 910;
+    z-index: 1;
+}
+         
+.dropdown-content a:hover {background-color: darkgray;}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+          
+          
+          
+           .dropdown-content2{
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width:70px;
+        border-radius: 18px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    right:500;
+    z-index: 1;
+}
+ 
+.dropdown-content2 a:hover {background-color: darkgray;}
+.dropdown-content2 a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown2 a:hover {background-color: #ddd;}
+          
+.show {display: block;}
+        </style>
+            
+</head>
+  
+       <body>
+           
+           
+             <!-- Modal -->
+           
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" id="modaltitle"> </h4>
+        </div>
+        <div class="modal-body" id ="modalbody"  style = 'white-space: pre;'>
+          <p>This is a small modal.</p>
+        </div>
+        <div class="modal-footer">
+          <label class = "labela" id = "btnmodal1"></label>
+              <label class = "labela" id = "btnmodal2"></label>
+        </div>
+      </div>
+    </div>
+  </div>
+           
+
+                <div class="content">
+
+                    <form id="add-cafe-form"></form>
+             
+                        <button class="buttona" onclick="btnSY()" id ="btnopenclose"></button>
+                         <button class="buttona" onclick="openbatchcourse()" id ="openbatch" hidden>Home</button>
+                    <button class="buttona" onclick="btn2()">Announce</button>
+                        
+                         <button class="buttona" onclick="openreg()">Registrar</button>
+                      <button class="buttona" onclick="btn1()">Schedules</button>
+                      <button onclick="myFunction1()" class="dropbtn">Students</button>
+                        <div id="myDropdown1" class="dropdown-content2">
+                                <a onclick = "showSHS()">SHS</a>
+                                <a onclick = "show1st()">COLLEGE</a>
+                                </div>
+            
+                    
+                      
+                   
+                    <br>
+                       <br>
+                        <img src="labelbar2.png"width="1220" height="20">
+            <select id ="mySelect" onchange="selectFunction()" class="in4" >
+                <option>Batch Scheduling</option>
+                <option>Course Adding</option>
+                <option>Section Scheduling</option>
+            </select>
+            <div id = headings>
+                       
+<br>       
+            Current School Year:<label id = "labalsy"></label>
+<br>
+            No. of Applicants:<label id = "labalapplicants"></label>
+<br>
+            No. of Enrollees:<label id = "labalenrollees"></label>
+                <br>
+                No. of Enrolled Students:<label id = "labalenrolled"></label>
+                    </div>
+            <div id="sy">
+           
+           
+            School Year: 
+            <input type="text"  onkeypress="return isNumberKey(event)" class="in1" maxlength="4" id="sy1" onkeyup="autofill()"> 
+            - 
+            <input type="text" class="in1" maxlength="4" id="sy2" onkeypress="return isNumberKey(event)" disabled >
+            <br>
+            
+            Semester: &nbsp;&nbsp; &nbsp;
+                <select id ="sem" class="in1" >
+                    <option value="1st">1st</option>
+                    <option value="2nd">2nd</option>
+                </select>
+             <br>
+          <button class="button" onclick="submitSY()"   id ="btnsubSY">Proceed</button>
+        </div>
+     <ul id="announce">      
+        <div>
+             Recipients: &nbsp;&nbsp; &nbsp;
+                <select id ="ancrecp" class="in1" >
+                    <option >Guest</option>
+                    <option>Users</option>
+                </select>
+             <br>
+            Title:<br>
+            <input type = "text" id = "anctitle" class = "in9" >
+            <br>
+            Subject:<br>
+        <textarea id = "ancbody" rows="4" cols="100" class = "textarea"  > </textarea>
+            <br>
+               <button  onclick="btnannounce()">Submit</button>
+         </div>
+         
+          </ul>                
+                    
+                    
+     <ul id="batch">      
+        <div>
+            Batch: 
+                <input type="text"  onkeypress="return isNumberKey(event)" class="in1" maxlength="1" id="batchtxt">
+              Time: 
+                <input type="text"  onkeypress="return isNumberKey(event)" class="in1" maxlength="2" id="txttime1" value = "09" onfocusout="timeout()" >
+            :
+             <input type="text"  onkeypress="return isNumberKey(event)" class="in1" maxlength="2" id="txttime2" value = "59" onfocusout="timeout2()">
+           
+             <select id ="timeAMPM"  class="in1" >
+                <option>AM</option>
+                <option>PM</option>
+            </select>
+            TO
+            
+                <input type="text"  onkeypress="return isNumberKey(event)" class="in1" maxlength="2" id="txttime3" value = "09" onfocusout="timeout4()" >
+            :
+             <input type="text"  onkeypress="return isNumberKey(event)" class="in1" maxlength="2" id="txttime4" value = "59" onfocusout="timeout5()">
+           
+             <select id ="timeAMPM2"  class="in1" >
+                <option>AM</option>
+                <option>PM</option>
+            </select>
+        <br>
+             Date:  &nbsp;
+             <select id ="dateselect"  class="in5" >
+                <option>January</option>
+                <option>February</option>
+                 <option>March</option>
+                 <option>April</option>
+                 <option>May</option>
+                 <option>June</option>
+                 <option>July</option>
+                 <option>August</option>
+                 <option>September</option>
+                 <option>October</option>
+                 <option>November</option>
+                 <option>December</option>
+            </select>
+            /
+            <input type="text"  onkeypress="return isNumberKey(event)" class="in1" maxlength="2" id="txtday" value = "31" onfocusout="timeout3()">
+           /
+            
+            <input type = "text" id = "year"  class="in1" disabled>
+            &nbsp;&nbsp;   <button class="button" onclick="clearFunction()" id ="btnclear">Reset</button>
+            <br>
+             <br>
+            Room: 
+                <input type="text" class="in1" id="roomtxt">
+            
+            Size: 
+                <input type="text" class="in1" id="qtxt" maxlength="3" onkeypress="return isNumberKey(event)">
+              
+                 &nbsp;&nbsp;   <button class="button" onclick="submitBatch()" id ="btnbatch">Proceed</button>
+                 <table id="tablebatch">
+                        <tr>
+                            <th>Batch</th>
+                            <th>Room</th>
+                            <th>Time</th>
+                            <th>Date</th>
+                            <th>Current Size</th>
+                     </tr> 
+            </table>
+            
+         </div>
+         
+          </ul>
+                    
+   <ul id="course" hidden>
+                
+       
+            College: &nbsp;&nbsp;
+                <select id ="courseselect" onchange = "selectCourse()" class="in2" >
+                     <option>
+                        College of Criminology  
+                    </option>
+                    <option>
+                        College of Human Kinetics
+                    </option>
+                    <option>
+                        College of Law
+                    </option>
+                    <option>
+                        College of Mass Communication 
+                    </option>
+                    <option>
+                        College of Public Administration
+                    </option>
+                    <option>
+                        College of Accountancy and Economics 
+                    </option>
+                    <option>
+                        College of Arts and Sciences
+                    </option>    
+                    <option>
+                        College of Business and Entrepreneurship 
+                    </option>
+                    <option>
+                         College of Health Sciences
+                    </option>
+                    <option>
+                        College of Education 
+                    </option>
+                    <option>
+                        College of Engineering and Technology 
+                    </option>
+              
+                    <option>
+                        Senior High School 
+                    </option>
+                </select>
+                       <br>
+            Programs: 
+                <select id ="progselect" class="in3" size = "1">
+                </select>
+                 <br>
+          Size: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="text" onkeypress="return isNumberKey(event)" class="in1" maxlength="3" id="crsizetxt">
+       
+              <input type="text" id = "txttemp" hidden>
+        &nbsp;&nbsp;  <button class="button" onclick="selectcourse()" id ="btnbatch">Proceed</button>
+          
+         
+          <table id="tablecourse" >
+            <tr class = "tra">
+            <th>College</th>
+            <th>Program</th>
+            <th>Section</th>
+            <th>Current Size</th>
+            </tr>
+            </table>
+        </ul>
+        
+                     
+                    
+                    <ul id="sectionsched" hidden>
+ 
+                 <br>
+                Section:&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;  
+                <select id ="secselect" class="in5" size = "1" onchange="subjChange()">
+                       <option>ABM</option>
+                    <option>STEM</option>
+                    <option>HUMSS</option>
+                   <option>GA</option>
+                    <option>CRIM</option>
+                    <option>CHK</option>
+                    <option>PY</option>
+                    <option>MC</option>
+                    <option>MT</option>
+                    <option>PA</option>
+                    <option>EK</option>
+                    <option>CO</option>
+                    <option>IT</option>
+                 
+                </select>
+                        -    <input type="text" onkeypress="return isNumberKey(event)" class="in1"maxlength="2" id="subjyearsem">
+                        
+                         Year:  &nbsp;
+             <select id ="secsubjyear"  class="in5" >
+                    <option>Grade 11</option>
+                    <option>Grade 12</option>
+              
+                   
+               
+            </select>
+                          Sem:  &nbsp;
+             <select id ="secsubjsem"  class="in5" >
+                <option>1st</option>
+                <option>2nd</option>
+            </select>   
+                 <br>
+          Subject Name: 
+                <input type="text"  class="in2" id="subjnametxt">
+            <br>
+          Subject Code: 
+                <input type="text"   class="in1"   id="subjcodetxt" oninput="uppercase2()">
+          Subject Units:
+                <input type="text" onkeypress="return isNumberKey(event)" class="in1"maxlength="1" id="subjunittxt">
+        
+        
+         Time: 
+                <input type="text"  onkeypress="return isNumberKey(event)" class="in1" maxlength="2" id="sectime1" value = "09" onfocusout="sectimeout()" >
+            :
+             <input type="text"  onkeypress="return isNumberKey(event)" class="in1" maxlength="2" id="sectime2" value = "59" onfocusout="sectimeout2()">
+           
+             <select id ="sectimeAMPM"  class="in1" >
+                <option>AM</option>
+                <option>PM</option>
+            </select>
+            TO
+            
+                <input type="text"  onkeypress="return isNumberKey(event)" class="in1" maxlength="2" id="sectime3" value = "09" onfocusout="sectimeout4()" >
+            :
+             <input type="text"  onkeypress="return isNumberKey(event)" class="in1" maxlength="2" id="sectime4" value = "59" onfocusout="sectimeout5()">
+           
+             <select id ="sectimeAMPM2"  class="in1" >
+                <option>AM</option>
+                <option>PM</option>
+            </select>                
+              <br>            
+          Room: &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;
+            <input type="text" class="in1" id="subjroomtxt">                    
+            Day: &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+            <input type="text"  placeholder="M,T,W,TH,F,S"class="in1" id="subjdaytxt" onkeypress="return isDayKey(event)" oninput="uppercase()"> 
+                        
+      
+        &nbsp;&nbsp;  <button class="button" onclick="subjFunction()" id ="subjproc">Proceed</button>
+        
+             &nbsp;&nbsp;  <button class="button" onclick="subjsaveFunction()" id ="subjsave" hidden>Save Changes</button>
+                 &nbsp;&nbsp;  <button class="button" onclick="subjcnlFunction()" id ="subjedit" hidden >Cancel</button>
+                        
+                        
+            <br>
+            <label style = "font-size: 30;">Filtering Section</label>
+                        <br>
+                Sort By: &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                <select id ="sortBy"  class="in5" onchange="filterSched()" >
+                <option>Subject Code</option>
+                <option>Subject Name</option>
+                <option>Units</option>
+                <option>Day</option>
+                <option>Time</option>
+                <option>Room</option>
+                <option>Section</option>   
+                  <option>Sem</option>
+                <option>Year</option>     
+            </select>    
+                 Search:<input type="text" class="in2" id="myInput" onkeyup="filterSched()">            
+          
+              <table id="tablesec" >
+            <tr class = "tra">
+         
+            <th>Code</th>
+            <th>Name</th>
+            <th>Units</th>
+            <th>Day</th>
+            <th>Time</th>
+            <th>Room</th>
+            <th>Section</th>
+                 <th>Sem</th>
+            <th>Year</th>
+            </tr>
+            </table>
+      
+        </ul>
+                          
+    <ul id="registrar" hidden="">
+                    <br>     
+        <table id="temptable">
+            <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Password</th>
+            </tr> 
+            </table>
+  
+          <br>  
+        <div id = codetempdiv hidden>
+            Code:   &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id = "txtcode" class="in7"   disabled>
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &nbsp;
+            Name:&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id = "txtname" class="in7" >
+             <br>
+            Username:    <input type="text" id = "txtedituser"  class="in6">
+        
+           Password:  &nbsp;&nbsp; <input type="text" id = "txteditpass" class="in6" >
+         &nbsp;&nbsp;  <button class="button" onclick="savereg()" >Save Changes</button>
+        &nbsp;&nbsp;  <button class="button" onclick="cnlreg()" >Cancel</button>
+        <br>
+        </div>
+
+        <br>
+        
+     <div id = codetempdiv2>
+           Surname:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="text" id = "txtreglast" class="in7" >
+        &nbsp;&nbsp;
+         First Name:<input type="text" id = "txtregfirst" class="in7" >
+         &nbsp;&nbsp;
+         Middle Initial:<input type="text" id = "txtregmiddle" class="in8" maxlength="1">
+        <br>
+             Username:  ;  <input type="text" id = "txtuser"  class="in6">
+        <br>
+           Password:  &nbsp;&nbsp; <input type="text" id = "txtpass" class="in6" >
+         &nbsp;&nbsp;  <button class="button" onclick="addreg()" >Proceed</button>
+    
+        <br>
+        </div>
+
+    </ul>
+                    
+                         
+    
+               
+                    
+                    
+                    <div id = "edit" hidden>
+        <button class="button" onclick="savechanges()" >Save</button>
+        <button class="button" onclick="closechanges()" >Cancel</button>
+        &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;  <input type="text" id = "nameedit" class="in9" >   
+        <input type="text" id = "useredit" class="in10" >
+        
+        <input type="text" id = "passedit" class="in11" >
+        </div>
+                    
+              <ul id="year1st" hidden="">
+                   Sort By:&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                <select id ="sortBy4"  class="in5" onchange="filterSched4()" >
+                <option>ID#</option>
+                <option>Name</option>
+                <option>Section</option>
+                <option>College</option>
+                <option>Program</option>
+                <option>Year</option>
+                <option>Phone#</option>
+             
+            </select>    
+                Filter Search:<input type="text" class="in2" id="myInput4" onkeyup="filterSched4()">    
+        <table id="table1styear">
+            <tr>
+                <th>ID#</th>
+                <th>Name</th>
+                <th>Section</th>
+                <th>College</th>
+                <th>Program</th>
+                <th>Year</th>
+                <th>Phone#</th>
+   
+            </tr> 
+        </table>             
+     </ul>   
+                    <ul id="shsyear" hidden="">
+                             Sort By:&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                <select id ="sortBy5"  class="in5" onchange="filterSched5()" >
+                <option>ID#</option>
+                <option>Name</option>
+                <option>Section</option>
+                <option>Program</option>
+                <option>Year</option>
+                <option>Phone#</option>
+             
+            </select>    
+                Filter Search:<input type="text" class="in2" id="myInput5" onkeyup="filterSched5()"> 
+        <table id="tableshsyear">
+                
+            <tr>
+                <th>ID#</th>
+                <th>Name</th>
+                <th>Section</th>
+                <th>Program</th>
+                <th>Year</th>
+                <th>Phone#</th>
+   
+            </tr> 
+        </table>             
+     </ul>  
+            
+                    
+         </div>
+           
+        
+
+<script>
+// Initialize Firebase
+var config = {
+apiKey: "AIzaSyDINKtjCvZS49qnG7MxT-5_auIA_q_vV4o",
+authDomain: "udmenrollment.firebaseapp.com",
+databaseURL: "https://udmenrollment.firebaseio.com",
+projectId: "udmenrollment",
+storageBucket: "udmenrollment.appspot.com",
+messagingSenderId: "784741931841"
+};
+firebase.initializeApp(config);
+db.settings({ timestampsInSnapshots: true }); 
+</script>
+ <script src="app.js"></script>
+    
+           
+           
+<script>
+     function btn1()
+               {
+            var elem1 = document.getElementById('batch');
+            var elem2 = document.getElementById('course');
+            var elem3 = document.getElementById('registrar');
+            var elem4 = document.getElementById('headings');
+            var elem5 = document.getElementById('sy');
+            var elem6 = document.getElementById('sectionsched');
+            var elem7= document.getElementById('announce');
+          var elem8 = document.getElementById('year1st');
+        var elem9 = document.getElementById('shsyear');
+        elem8.style.display = "none";
+        elem9.style.display = "none";
+            var mySelect = document.getElementById('mySelect');
+            elem1.style.display = "none";
+            elem2.style.display = "none";
+            elem3.style.display = "none";
+            elem4.style.display = "none";
+            elem5.style.display = "none";
+            elem6.style.display = "block";
+            elem7.style.display = "none";
+            mySelect.style.display = "none"; 
+               }
+      function btn2()
+               {
+            var elem1 = document.getElementById('batch');
+            var elem2 = document.getElementById('course');
+            var elem3 = document.getElementById('registrar');
+            var elem4 = document.getElementById('headings');
+            var elem5 = document.getElementById('sy');
+            var elem6 = document.getElementById('sectionsched');
+            var mySelect = document.getElementById('mySelect');
+            var elem7= document.getElementById('announce');
+                     var elem8 = document.getElementById('year1st');
+        var elem9 = document.getElementById('shsyear');
+        elem8.style.display = "none";
+        elem9.style.display = "none";
+            elem7.style.display = "block";
+            elem1.style.display = "none";
+            elem2.style.display = "none";
+            elem3.style.display = "none";
+            elem4.style.display = "none";
+            elem5.style.display = "none";
+            elem6.style.display = "none";
+            mySelect.style.display = "none"; 
+               }
+ 
+      function openreg()
+               {
+            var elem1 = document.getElementById('batch');
+            var elem2 = document.getElementById('course');
+            var elem3 = document.getElementById('registrar');
+            var elem4 = document.getElementById('headings');
+            var elem5 = document.getElementById('sy');
+            var elem6 = document.getElementById('sectionsched');
+            var elem7= document.getElementById('announce');
+                   elem7.style.display = "none";
+                     var elem8 = document.getElementById('year1st');
+        var elem9 = document.getElementById('shsyear');
+        elem8.style.display = "none";
+        elem9.style.display = "none";
+            var mySelect = document.getElementById('mySelect');
+            elem1.style.display = "none";
+            elem2.style.display = "none";
+            elem3.style.display = "block";
+            elem4.style.display = "none";
+            elem5.style.display = "none";
+            elem6.style.display = "none";
+            mySelect.style.display = "none";     
+               }
+         function openbatchcourse()
+               {
+            var elem1 = document.getElementById('batch');
+            var elem2 = document.getElementById('course');
+            var elem3 = document.getElementById('registrar');
+            var elem4 = document.getElementById('headings');
+            var elem5 = document.getElementById('sy');
+                   var elem7= document.getElementById('announce');
+                     var elem8 = document.getElementById('year1st');
+        var elem9 = document.getElementById('shsyear');
+        elem8.style.display = "none";
+        elem9.style.display = "none";
+                   elem7.style.display = "none";
+            var elem6 = document.getElementById('sectionsched');
+            var mySelect = document.getElementById('mySelect');
+            elem1.style.display = "none";
+            elem2.style.display = "none";
+            elem3.style.display = "none";
+            elem4.style.display = "block"; 
+            elem5.style.display = "none";
+            elem6.style.display = "none";
+                   if(sem === "1st")
+                       {
+                            mySelect.style.display = "block"; 
+                       }
+                   else
+                       {
+                              mySelect.style.display = "none";
+                       }
+                    
+               }
+              function selectFunction()
+    {
+        var divbatch = document.getElementById('batch');
+        var divcourse = document.getElementById('course');
+        var divsection = document.getElementById('sectionsched');
+        var elem7= document.getElementById('announce');
+        var elem8 = document.getElementById('year1st');
+        var elem9 = document.getElementById('shsyear');
+        elem8.style.display = "none";
+        elem9.style.display = "none";
+                   elem7.style.display = "none";
+        var x =  document.getElementById('mySelect');
+   
+            if(x.selectedIndex == 0)
+                {
+                    
+                 divbatch.style.display = "block";
+                     divcourse.style.display="none";
+                    divsection.style.display="none";
+                }
+            else if(x.selectedIndex == 1)
+                {
+                    divbatch.style.display = "none";
+                    divcourse.style.display ="block"; 
+                    divsection.style.display="none";
+                  
+                }
+    
+    }
+             function showSHS()
+              {
+            var elem1 = document.getElementById('batch');
+            var elem2 = document.getElementById('course');
+            var elem3 = document.getElementById('registrar');
+            var elem4 = document.getElementById('headings');
+            var elem5 = document.getElementById('sy');
+            var elem6 = document.getElementById('sectionsched');
+            var elem7= document.getElementById('announce');
+            var elem8 = document.getElementById('year1st');
+            var elem9 = document.getElementById('shsyear');
+            var mySelect = document.getElementById('mySelect');
+            elem1.style.display = "none";
+            elem2.style.display = "none";
+            elem3.style.display = "none";
+            elem4.style.display = "none";
+            elem5.style.display = "none";
+            elem6.style.display = "none";
+            mySelect.style.display = "none"; 
+            elem7.style.display = "none";      
+            elem8.style.display = "none";
+            elem9.style.display = "block";
+    
+              }
+             function show1st()
+              {
+                  var elem1 = document.getElementById('batch');
+            var elem2 = document.getElementById('course');
+            var elem3 = document.getElementById('registrar');
+            var elem4 = document.getElementById('headings');
+            var elem5 = document.getElementById('sy');
+            var elem6 = document.getElementById('sectionsched');
+            var elem7= document.getElementById('announce');
+            var elem8 = document.getElementById('year1st');
+            var elem9 = document.getElementById('shsyear');
+            var mySelect = document.getElementById('mySelect');
+            elem1.style.display = "none";
+            elem2.style.display = "none";
+            elem3.style.display = "none";
+            elem4.style.display = "none";
+            elem5.style.display = "none";
+            elem6.style.display = "none";
+            mySelect.style.display = "none"; 
+            elem7.style.display = "none";      
+            elem8.style.display = "block";
+            elem9.style.display = "none";
+    
+              }     
+  /* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+  
+              
+    function myFunction1() 
+        {
+            document.getElementById("myDropdown1").classList.toggle("show");
+        }
+              
+              
+    function btnSY() 
+        {
+            var btnopenclose = document.getElementById('btnopenclose');
+            if(btnopenclose.textContent === "Open SEM")
+                {
+                    var d = new Date();
+                    var n = d.getFullYear();
+                    var o = n + 1;
+                    document.getElementById('sy1').value = n;
+                    document.getElementById('sy2').value = o;
+                    var elem1 = document.getElementById('batch');
+                    var headings = document.getElementById('headings');
+                    var reg = document.getElementById('registrar');
+                    var sy = document.getElementById('sy');
+                    var announce = document.getElementById('announce');
+                    elem1.style.display = "none";
+                    sy.style.display = "block";
+                    reg.style.display = "none";
+                    headings.style.display = "none";
+                    announce.style.display = "none";
+                }
+            else
+                {
+                    db.collection("SY").get()
+                    .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        if(doc.data().status === "open")
+                            {
+                                db.collection('SY').doc(doc.id).update({
+                                status: "close"
+                                });
+                            }
+                    });
+                    });
+                                
+                alert("School Year " + syglobal+ " has been closed"); 
+        
+                        
+                 db.collection("studentForms").get()
+                    .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        if(doc.data().Status === "Enrolled")
+                            {
+                                db.collection('studentForms').doc(doc.id).update({
+                                Status: "Ongoing" 
+                                });
+                            }
+                        else
+                            {
+                               db.collection('studentForms').doc(doc.id).update({
+                                Status: "Not Enrolled" 
+                                }); 
+                            }
+                        
+                
+                            
+                    });
+                    });
+                    
+                var div1 = document.getElementById('sy');
+                var div2 = document.getElementById('batch'); 
+                var div3 = document.getElementById('course');
+                var btn = document.getElementById('btnopenclose');
+                var div4 = document.getElementById('headings');
+                var div5 = document.getElementById('sectionsched');
+                var mySelect = document.getElementById('mySelect');
+                btn.textContent= "Open SEM";   
+                div1.style.display = "none";
+                div2.style.display = "none";
+                div3.style.display = "none";
+                div4.style.display = "none";
+                div5.style.display = "none";
+                mySelect.style.display ="none"; 
+                    
+                    
+                    sem = "";
+                }
+                 
+        }    
+ 
+    function submitSY() 
+        {
+            var sy1 = document.getElementById('sy1').value;
+            var sy2 = document.getElementById('sy2').value;
+            var sem= document.getElementById('sem').value;
+                if(sy1 === "" || sy2 ==="" || sem === "")
+                    {
+                        alert("Please complete all fields");
+                    }
+    
+                else
+                    {
+                      
+                     
+                        var sy3 = sy1+ "-" + sy2;
+                        db.collection('SY').doc(sy3).set({
+                        schoolyear: sy3,
+                        status: "open",
+                        semester: sem
+                    }).then(function(docRef) {
+                        alert("Enrollment for School Year: " +sy3+ ", "+sem+" semester are now open");
+                        document.getElementById('sy1').value="";
+                        document.getElementById('sy2').value="";
+                             var today = new Date();
+                   var dd = today.getDate();
+                   var mm = today.getMonth()+1; //January is 0!
+                   var yyyy = today.getFullYear();
+
+                   if(dd<10) {
+                        dd = '0'+dd
+                        } 
+
+                        if(mm<10) {
+                        mm = '0'+mm
+                            } 
+
+                            today = mm + '/' + dd + '/' + yyyy;
+           
+                        db.collection("notifications").doc("schoolyear").set({
+                        title: "Opening of School Year",
+                        date: today,
+                        body: "School Year " + sy3+ "   " + sem + " semester is now open"
+                     
+            
+                      });
+                        
+                        location.reload();
+                        })
+                            .catch(function(error) {
+                                console.error("Error adding document: ", error);
+                        });
+                        
+                             db.collection("studentForms").get()
+                    .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        
+                         db.collection('studentForms').doc(doc.id).update({
+                                Status: "For Clearance" 
+                                
+                                });
+                            
+                            
+                    });
+                    });
+                     db.collection("batchANDroom").get()
+                    .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        
+                        db.collection("batchANDroom").doc(doc.id).delete();
+                            
+                    });
+                    });
+                          db.collection("courses").get()
+                    .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        
+                        db.collection("courses").doc(doc.id).delete();
+                            
+                    });
+                    });
+                        
+              
+                         
+                         
+          
+                    }              
+ 
+        }  
+              
+              
+    function submitBatch() 
+        {
+            var batchtxt = document.getElementById('batchtxt').value;
+            var roomtxt = document.getElementById('roomtxt').value;
+            var qtxt = document.getElementById('qtxt').value;
+            var start = document.getElementById('txttime1').value + ":" + document.getElementById('txttime2').value + document.getElementById('timeAMPM').value;
+            var end = document.getElementById('txttime3').value + ":" +document.getElementById('txttime4').value + document.getElementById('timeAMPM2').value;
+            var date = document.getElementById('dateselect').value +   " "  + document.getElementById('txtday').value +  "," + document.getElementById('year').value;
+            
+            db.collection('batchANDroom').doc(batchtxt+"batch"+"room"+roomtxt).set({
+            batch: batchtxt,
+            quantity: qtxt,
+            schoolyear: syglobal,
+            room: roomtxt,
+            timestart: start,
+                timeend: end,
+                date: date
+            
+            }).then(function(docRef) {
+                alert("Added Successfully");
+             
+                document.getElementById('roomtxt').value="";
+                document.getElementById('qtxt').value="";    
+            })
+                .catch(function(error) {
+                console.error("Error adding document: ", error);
+            });
+  
+        
+        } 
+              
+              
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(e) {
+  if (!e.target.matches('.dropbtn')) {
+    var myDropdown1 = document.getElementById("myDropdown1");
+         if(myDropdown1.classList.contains('show') ) {
+        myDropdown1.classList.remove('show');
+     
+      }
+   
+  
+  }
+}
+
+function isNumberKey(evt)
+    {
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+    }
+    
+    function isDayKey(evt)
+    {
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode !== 77 && charCode !== 70 && charCode !== 87 && charCode !== 72 && 
+       charCode !== 70 && charCode !== 84 && charCode !== 83 && charCode !== 109 && charCode !== 119 && charCode !== 102 && charCode !== 116 && charCode !== 104 && 
+        charCode !== 115  )
+        {
+        return false;
+            
+        }
+    return true;
+    }
+function autofill() 
+    {
+        var txt = document.getElementById("sy1").value;
+        var num =  parseInt(txt);
+        var length = txt.length;
+        
+        if(length == 4)
+            {
+                num = num+1;
+                txt = num.toString();
+                document.getElementById("sy2").value = txt;
+            
+            }
+        else
+            {
+                document.getElementById("sy2").value = "";
+            }
+  
+    }
+
+        </script>
+           
+           <script>
+               
+               
+         function btnannounce()
+         {
+                var title = document.getElementById('anctitle').value;
+                var body = document.getElementById('ancbody').value;
+                var recp = document.getElementById('ancrecp') ; 
+             
+                   var today = new Date();
+                   var dd = today.getDate();
+                   var mm = today.getMonth()+1; //January is 0!
+                   var yyyy = today.getFullYear();
+
+                   if(dd<10) {
+                        dd = '0'+dd
+                        } 
+
+                        if(mm<10) {
+                        mm = '0'+mm
+                            } 
+
+                            today = mm + '/' + dd + '/' + yyyy;
+            
+                if(recp.selectedIndex == 0)
+                     {
+                        db.collection("notifications").doc().set({
+                        title: title,
+                        date: today,
+                        body: body
+                     
+            
+                      });
+                         alert("done");
+                         
+                     } 
+                   else
+                       {
+                    db.collection("studentForms").get()
+                    .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                        
+                db.collection("studentForms").doc(doc.id).collection("notif").doc()
+                .set({
+                    title: title,
+                    date: today,
+                    body: body
+                     
+                    });
+                }             
+            );
+        });
+                 
+                     }
+     }
+               
+     function filterSched()
+        {
+            
+        
+            var input, filter, table, tr, td, i,sort,sorttemp;
+            sort = document.getElementById("sortBy");
+            if(sort.value === "Subject Code")
+                {
+                    sorttemp = 0;
+                }
+            else  if(sort.value === "Subject Name")
+                {
+                    sorttemp = 1;
+                }
+            else  if(sort.value === "Units")
+                {
+                    sorttemp = 2;
+                }
+            else  if(sort.value === "Day")
+                {
+                    sorttemp = 3;
+                }
+            else  if(sort.value === "Time")
+                {
+                    sorttemp = 4;
+                }
+              else  if(sort.value === "Room")
+                {
+                    sorttemp = 5;
+                }
+              else  if(sort.value === "Section")
+                {
+                    sorttemp = 6;
+                }
+               else  if(sort.value === "Sem")
+                {
+                    sorttemp = 7;
+                }
+               else  if(sort.value === "Year")
+                {
+                    sorttemp = 8;
+                }
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("tablesec");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[sorttemp];
+            if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                    } else {
+                            tr[i].style.display = "none";
+                            }
+                    }       
+                    }
+               }
+            function filterSched4()
+        {
+            var input, filter, table, tr, td, i,sort,sorttemp;
+            sort = document.getElementById("sortBy4");
+            if(sort.value === "ID#")
+                {
+                    sorttemp = 0;
+                }
+              else  if(sort.value === "Name")
+                {
+                    sorttemp = 1;
+                }
+            else  if(sort.value === "Section")
+                {
+                    sorttemp = 2;
+                }
+            else  if(sort.value === "College")
+                {
+                    sorttemp = 3;
+                }
+          
+              else  if(sort.value === "Program")
+                {
+                    sorttemp = 4;
+                }
+        else  if(sort.value === "Year")
+                {
+                    sorttemp = 5;
+                }
+             else  if(sort.value === "Phone#")
+                {
+                    sorttemp = 6;
+                }
+            
+            input = document.getElementById("myInput4");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("table1styear");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[sorttemp];
+            if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                    } else {
+                            tr[i].style.display = "none";
+                            }
+                    }       
+            }
+        }
+              
+                          function filterSched5()
+        {
+            var input, filter, table, tr, td, i,sort,sorttemp;
+            sort = document.getElementById("sortBy5");
+            if(sort.value === "ID#")
+                {
+                    sorttemp = 0;
+                }
+              else  if(sort.value === "Name")
+                {
+                    sorttemp = 1;
+                }
+            else  if(sort.value === "Section")
+                {
+                    sorttemp = 2;
+                }
+           
+          
+              else  if(sort.value === "Program")
+                {
+                    sorttemp = 3;
+                }
+        else  if(sort.value === "Year")
+                {
+                    sorttemp = 4;
+                }
+             else  if(sort.value === "Phone#")
+                {
+                    sorttemp = 5;
+                }
+            
+            input = document.getElementById("myInput5");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("tableshsyear");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[sorttemp];
+            if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                    } else {
+                            tr[i].style.display = "none";
+                            }
+                    }       
+            }
+        }         
+               
+               
+            function selectCourse() 
+    {
+      
+           var courseselect = document.getElementById("courseselect");
+           var progselect=  document.getElementById("progselect");
+           var option1 = document.createElement("option");
+           var option2 = document.createElement("option");
+           var option3= document.createElement("option");
+           var option4= document.createElement("option");
+           var i;
+        if(courseselect.selectedIndex ==0)
+            {
+                progselect.options.length = 0;
+                option1.text="BS IN CRIMINOLOGY";
+                progselect.add(option1);
+            }
+        else if(courseselect.selectedIndex ==1)
+            {
+                progselect.options.length = 0;
+                option1.text="BS IN HUMAN KINETICS";
+                progselect.add(option1);
+            }
+         else if(courseselect.selectedIndex ==2)
+            {
+                progselect.options.length = 0;
+                option1.text="BS IN LAW";
+                progselect.add(option1);
+            }
+         else if(courseselect.selectedIndex ==3)
+            {
+                progselect.options.length = 0;
+                option1.text="BS IN MASS COMMUNICATION";
+                progselect.add(option1);
+            }
+         else if(courseselect.selectedIndex ==4)
+            {
+                progselect.options.length = 0;
+                option1.text="BS IN PUBLIC ADMINISTRATION";
+                progselect.add(option1);
+            }
+        else if(courseselect.selectedIndex == 5)
+            {
+                progselect.options.length = 0;
+                option1.text = "BS IN ACCOUNTANCY";
+                option2.text = "BS IN ACCOUNTING TECHNOLOGY";
+                option3.text = "BSBA IN BUSINESS ECONOMICS";
+                progselect.add(option1);
+                progselect.add(option2);
+                progselect.add(option3); 
+            }
+         else if(courseselect.selectedIndex == 6)
+            {
+                progselect.options.length = 0;
+                option1.text = "BACHELOR OF ARTS IN POLITICAL SCIENCE";
+                option2.text = "BS IN MATHEMATICS MINOR COMPUTER SCIENCE";
+                option3.text = "BS IN PSYCHOLOGY";
+                option4.text = "BS IN SOCIAL WORK";
+                progselect.add(option1);
+                progselect.add(option2);
+                progselect.add(option3); 
+                progselect.add(option4);
+            }
+        
+           else if(courseselect.selectedIndex == 7)
+            {
+                progselect.options.length = 0;
+                option1.text = "BSBA IN ENTREPRENUERSHIP";
+                option2.text = "BSBA IN HUMAN RESOURCES DEVELOPMENT MANAGEMENT";
+                option3.text = "BSBA IN MARKETING MANAGEMENT";
+                progselect.add(option1);
+                progselect.add(option2);
+                progselect.add(option3); 
+      
+                
+            }
+
+   else if(courseselect.selectedIndex == 8)
+            {
+                progselect.options.length = 0;
+                option1.text = "BS IN NURSING";
+                option2.text = "BS IN PHYSICAL THERAPY";
+                progselect.add(option1);
+                progselect.add(option2);
+               
+            }
+
+   else if(courseselect.selectedIndex == 9)
+            {
+                progselect.options.length = 0;
+                option1.text = "BSED MAJOR IN BIOLOGICAL SCIENCE";
+                option2.text = "BSED MAJOR IN ENGLISH"; 
+                option3.text = "BSED MAJOR IN MATHEMATICS";
+                option4.text = "BSED MAJOR IN SOCIAL SCIENCES";
+                progselect.add(option1);
+                progselect.add(option2);
+                progselect.add(option3);
+                progselect.add(option4);
+                
+            }
+ else if(courseselect.selectedIndex == 10)
+            {
+                progselect.options.length = 0;
+                option1.text = "BS IN COMPUTER ENGINEERING";
+                option2.text = "BS IN ELECTRONICS AND COMMUNICATION ENGINEERING"; 
+                option3.text = "BS IN INFORMATION TECHNOLOGY";
+                progselect.add(option1);
+                progselect.add(option2);
+                progselect.add(option3);
+                
+            }
+
+ else if(courseselect.selectedIndex == 11)
+            {
+               progselect.options.length = 0;
+               option1.text = "(ABM)-ACCOUNTANCY, BUSINESS AND MANAGEMENT";
+               option2.text = "(STEM)-SCIENCE, TECHNOLOGY, ENGINEERING, AND MATHEMATICS"; 
+               option3.text = "(HUMSS)-HUMANITIES AND SOCIAL SCIENCE";
+               option4.text = "(GA)-GENERAL ACADEMIC";
+               progselect.add(option1);
+               progselect.add(option2);
+               progselect.add(option3);
+               progselect.add(option4);
+                
+            }
+    }
+ 
+              
+    function secselectCourse() 
+    {
+      
+        var courseselect = document.getElementById("seccourseselect");
+        var progselect=  document.getElementById("secprogselect");
+        var option1 = document.createElement("option");
+        var option2 = document.createElement("option");
+        var option3= document.createElement("option");
+        var option4= document.createElement("option");
+        var i;
+        if(courseselect.selectedIndex ==0)
+            {
+                progselect.options.length = 0;
+                option1.text="BS IN CRIMINOLOGY";
+                progselect.add(option1);
+             
+                
+            }
+        else if(courseselect.selectedIndex ==1)
+            {
+                  progselect.options.length = 0;
+                option1.text="BS IN HUMAN KINETICS";
+                progselect.add(option1);
+            }
+         else if(courseselect.selectedIndex ==2)
+            {
+                  progselect.options.length = 0;
+                option1.text="BS IN LAW";
+                progselect.add(option1);
+            }
+         else if(courseselect.selectedIndex ==3)
+            {
+                  progselect.options.length = 0;
+                option1.text="BS IN MASS COMMUNICATION";
+                progselect.add(option1);
+            }
+         else if(courseselect.selectedIndex ==4)
+            {
+                  progselect.options.length = 0;
+                option1.text="BS IN PUBLIC ADMINISTRATION";
+                progselect.add(option1);
+            }
+        else if(courseselect.selectedIndex == 5)
+            {
+                progselect.options.length = 0;
+                option1.text = "BS ACCOUNTANCY";
+                option2.text = "BS ACCOUNTING TECHNOLOGY";
+                option3.text = "BSBA BUSINESS ECONOMICS";
+                progselect.add(option1);
+                progselect.add(option2);
+                progselect.add(option3); 
+            }
+         else if(courseselect.selectedIndex == 6)
+            {
+                progselect.options.length = 0;
+                option1.text = "BACHELOR OF ARTS IN POLITICAL SCIENCE";
+                option2.text = "BS MATHEMATICS MINOR COMPUTER SCIENCE";
+                option3.text = "BS PSYCHOLOGY";
+                option4.text = "BS SOCIAL WORK";
+                
+                       progselect.add(option1);
+                progselect.add(option2);
+                progselect.add(option3); 
+                progselect.add(option4);
+            }
+        
+           else if(courseselect.selectedIndex == 7)
+            {
+                progselect.options.length = 0;
+            
+                  option1.text = "BSBA ENTREPRENUERSHIP";
+                option2.text = "BSBA HUMAN RESOURCES DEVELOPMENT MANAGEMENT";
+                option3.text = "BSBA MARKETING MANAGEMENT";
+                
+                
+                       progselect.add(option1);
+                progselect.add(option2);
+                progselect.add(option3); 
+      
+                
+            }
+
+   else if(courseselect.selectedIndex == 8)
+            {
+                progselect.options.length = 0;
+                
+             
+                option1.text = "BS NURSING";
+                option2.text = "BS PHYSICAL THERAPY";
+                progselect.add(option1);
+                progselect.add(option2);
+               
+            }
+
+   else if(courseselect.selectedIndex == 9)
+            {
+                progselect.options.length = 0;
+             
+                
+                
+                option1.text = "BSED MAJOR IN BIOLOGICAL SCIENCE";
+                option2.text = "BSED MAJOR IN ENGLISH"; 
+                option3.text = "BSED MAJOR IN MATHEMATICS";
+                option4.text = "BSED MAJOR IN SOCIAL SCIENCES";
+                progselect.add(option1);
+                progselect.add(option2);
+                progselect.add(option3);
+                progselect.add(option4);
+                
+            }
+ else if(courseselect.selectedIndex == 10)
+            {
+                progselect.options.length = 0;
+          
+                 option1.text = "BS COMPUTER ENGINEERING";
+                option2.text = "BS ELECTRONICS AND COMMUNICATION ENGINEERING"; 
+                option3.text = "BS INFORMATION TECHNOLOGY";
+              
+                progselect.add(option1);
+                progselect.add(option2);
+                progselect.add(option3);
+              
+                
+            }
+
+ else if(courseselect.selectedIndex == 11)
+            {
+                progselect.options.length = 0;
+            
+                     option1.text = "(ABM)-ACCOUNTANCY, BUSINESS AND MANAGEMENT";
+                option2.text = "(STEM)-SCIENCE, TECHNOLOGY, ENGINEERING, AND MATHEMATICS"; 
+                option3.text = "(HUMSS)-HUMANITIES AND SOCIAL SCIENCE";
+               option4.text = "(GA)-GENERAL ACADEMIC";
+                progselect.add(option1);
+                progselect.add(option2);
+                progselect.add(option3);
+                 progselect.add(option4);
+                
+            }
+         var secselect = document.getElementById('secselect');
+            
+        if(courseselect.value ==="All")
+            {
+                
+                   secselect.options.length = 0;
+                     progselect.options.length = 0;
+                  option1.text = "All";
+                 progselect.add(option1);
+                db.collection("courses").get()
+                .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc) {
+                // doc.data() is never undefined for query doc snapshots
+                  var opt = document.createElement('option');
+                        opt.value = doc.id;
+                        opt.innerHTML = doc.id;
+                        secselect.appendChild(opt);
+                
+    
+   
+        });
+    });
+            }
+        else
+            {
+            secselect.options.length = 0;
+             db.collection("courses").get()
+             .then(function(querySnapshot) {
+             querySnapshot.forEach(function(doc) {
+              // doc.data() is never undefined for query doc snapshots
+              if(doc.data().program === progselect.value)
+                  {
+              
+                var opt = document.createElement('option');
+                opt.value = doc.id;
+                opt.innerHTML = doc.id;
+                secselect.appendChild(opt);
+                  }
+   
+        });
+    });
+            
+            }
+
+
+        
+  
+    }
+               
+    function filtersection()
+         {
+            var secselect = document.getElementById('secselect');
+            var secprogselect=  document.getElementById("secprogselect");
+             secselect.options.length = 0;
+             db.collection("courses").get()
+             .then(function(querySnapshot) {
+             querySnapshot.forEach(function(doc) {
+              // doc.data() is never undefined for query doc snapshots
+              if(doc.data().program === secprogselect.value)
+                  {
+              
+                var opt = document.createElement('option');
+                opt.value = doc.id;
+                opt.innerHTML = doc.id;
+                secselect.appendChild(opt);
+                  }
+   
+        });
+    });
+            
+         }
+ 
+           </script>
+           
+           <script>
+           
+           
+           
+ 
+               
+           function timeout()
+    {
+        var time = document.getElementById('txttime1').value;
+        if(time.length ==1)
+            {
+                document.getElementById('txttime1').value = "0" + time;
+            }
+        if(time > 12)
+            {
+                document.getElementById('txttime1').value  = "09";
+            }
+    }
+                 function timeout2()
+    {
+        var time = document.getElementById('txttime2').value;
+        if(time.length ==1)
+            {
+                document.getElementById('txttime2').value = "0" + time;
+            }
+        if(time > 59)
+            {
+                document.getElementById('txttime2').value  = "59";
+            }
+    }
+               function timeout4()
+    {
+        var time = document.getElementById('txttime3').value;
+        if(time.length ==1)
+            {
+                document.getElementById('txttime3').value = "0" + time;
+            }
+        if(time > 12)
+            {
+                document.getElementById('txttime3').value  = "09";
+            }
+    }
+                 function timeout5()
+    {
+        var time = document.getElementById('txttime4').value;
+        if(time.length ==1)
+            {
+                document.getElementById('txttime4').value = "0" + time;
+            }
+        if(time > 59)
+            {
+                document.getElementById('txttime4').value  = "59";
+            }
+    }
+               
+               
+                  function timeout3()
+    {
+        var day = document.getElementById('txtday').value;
+        if(day.length ==1)
+            {
+                document.getElementById('txtday').value = "0" + day;
+            }
+        if(day > 31 || day == 00 || day == 0)
+            {
+                document.getElementById('txtday').value  = "31";
+            }
+    }
+               
+           
+             function sectimeout()
+    {
+        var time = document.getElementById('sectime1').value;
+        if(time.length ==1)
+            {
+                document.getElementById('sectime1').value = "0" + time;
+            }
+        if(time > 12)
+            {
+                document.getElementById('sectime1').value  = "09";
+            }
+    }
+                 function sectimeout2()
+    {
+        var time = document.getElementById('sectime2').value;
+        if(time.length ==1)
+            {
+                document.getElementById('sectime2').value = "0" + time;
+            }
+        if(time > 59)
+            {
+                document.getElementById('sectime2').value  = "59";
+            }
+    }
+               function sectimeout4()
+    {
+        var time = document.getElementById('sectime3').value;
+        if(time.length ==1)
+            {
+                document.getElementById('sectime3').value = "0" + time;
+            }
+        if(time > 12)
+            {
+                document.getElementById('sectime3').value  = "09";
+            }
+    }
+        function sectimeout5()
+    {
+        var time = document.getElementById('sectime4').value;
+        if(time.length ==1)
+            {
+                document.getElementById('sectime4').value = "0" + time;
+            }
+        if(time > 59)
+            {
+                document.getElementById('sectime4').value  = "59";
+            }
+    }
+        function uppercase()
+               {
+                   str= document.getElementById('subjdaytxt').value;
+                   str = str.toUpperCase();
+                   document.getElementById('subjdaytxt').value = str;
+               
+               }
+               
+                    function uppercase2()
+               {
+                   str= document.getElementById('subjcodetxt').value;
+                   str = str.toUpperCase();
+                   document.getElementById('subjcodetxt').value = str;
+               
+               }
+           </script>
+           <script>
+             function clearFunction()
+    {
+        document.getElementById('txtday').value ="31";
+         document.getElementById('batchtxt').value ="";
+         document.getElementById('txttime1').value ="09";
+         document.getElementById('txttime2').value ="59";
+        
+        document.getElementById('timeAMPM').value ="AM";
+        
+         document.getElementById('txttime3').value ="09";
+         document.getElementById('txttime4').value ="59";
+        
+        document.getElementById('timeAMPM2').value ="AM";
+        document.getElementById('dateselect').value ="January";
+        
+    }
+               
+                
+               
+     
+               
+           </script>
+           
+           <script>
+               
+     function selectcourse()
+    {
+        var tempid;
+   
+        var temp = "not done";
+        var courseselect = document.getElementById("courseselect").value;
+        var progselect=  document.getElementById("progselect").value;
+        var sizeselect = document.getElementById("crsizetxt").value;
+        var code;
+        var section;
+        var sectioncode;
+        if(courseselect === "" || sizeselect === "")
+            {
+                alert("Please complete all fields");
+            }
+        else
+            {
+                
+           
+        if(progselect == "BS IN CRIMINOLOGY")
+            {
+                code = "CRIM"
+            }
+        else if(progselect == "BS IN HUMAN KINETICS")
+            {
+                code = "CHK"
+            }
+         else if(progselect == "BS IN MASS COMMUNICATION")
+            {
+                code = "MC"
+            }
+         else if(progselect == "BS IN PUBLIC ADMINISTRATION")
+            {
+                code = "PA"
+            }
+         else if(progselect == "BS IN COMPUTER ENGINEERING")
+            {
+                code = "CO"
+            }
+         else if(progselect == "BS IN ELECTRONICS AND COMMUNICATION ENGINEERING")
+            {
+                code = "EK"
+            }
+                else if(progselect == "BS IN PSYCHOLOGY")
+            {
+                code = "PY"
+            }
+         else if(progselect == "BS IN INFORMATION TECHNOLOGY")
+            {
+                code = "IT"
+            }
+                 else if(progselect == "(ABM)-ACCOUNTANCY, BUSINESS AND MANAGEMENT")
+            {
+                code = "ABM"
+            }
+                 else if(progselect == "(STEM)-SCIENCE, TECHNOLOGY, ENGINEERING, AND MATHEMATICS")
+            {
+                code = "STEM"
+            }
+                 else if(progselect == "(HUMSS)-HUMANITIES AND SOCIAL SCIENCE")
+            {
+                code = "HUMSS"
+            }
+                 else if(progselect == "(GA)-GENERAL ACADEMIC")
+            {
+                code = "GA"
+            }
+        else     
+            {
+               var matches = progselect.match(/\b(\w)/g); // ['J','S','O','N']
+    	       var acronym = matches.join(''); // JSON
+               code = acronym 
+            }
+        
+   
+       
+          
+           db.collection("courses").get()
+           .then(function(querySnapshot) {
+           querySnapshot.forEach(function(doc) {
+              
+                  
+                if (doc.data().college  === "") 
+                {
+                     
+                    tempid= doc.id;
+                    sectioncode = code + "-11";
+       
+                    db.collection("courses").doc(sectioncode).set({
+                        college: courseselect,
+                        program: progselect,
+                        section: "11",
+                        sectioncode: sectioncode,
+                        added: "recent",
+                        progcode:code,
+                        size: sizeselect
+            
+            });
+                    
+               db.collection("courses").doc(tempid).delete();
+             } 
+                else if(doc.data().program === progselect &&  doc.data().added  == "recent") 
+                { 
+    
+                         document.getElementById('txttemp').value="exit";
+                         var num = parseInt(doc.data().section);
+                         var tempnum = 0;
+                         num = num+1;
+                    
+                         sectioncode= code + "-"+ num;
+                         temp = "done";
+                       
+                         
+                         db.collection('courses').doc(doc.id).update({
+                         added:"previous",
+                        });
+                        db.collection("courses").doc(sectioncode).set({
+                        college: courseselect,
+                        program: progselect,
+                        section: num,
+                        added: "recent",
+                            
+                        sectioncode: sectioncode,
+                        size: sizeselect,
+                            progcode:code
+                        });
+
+                }
+   
+        });
+               if(temp === "done")
+                   {
+                       
+                       
+                   }
+               else
+                   {
+                         sectioncode = code +"-"+ "11";
+       
+                    db.collection("courses").doc(sectioncode).set({
+                        college: courseselect,
+                        program: progselect,
+                        section: "11",
+                        sectioncode: sectioncode,
+                        added: "recent",
+                        progcode:code,
+                        size: sizeselect
+            
+                        });
+                   }
+    });
+
+                alert("Added Successfully");
+                document.getElementById("txttemp").value="";
+                temp = "not done";
+                document.getElementById("courseselect").value="";
+                document.getElementById("progselect").value="";
+                document.getElementById("crsizetxt").value="";
+                document.getElementById("progselect").options.length = 0;
+                
+            }
+            } 
+               
+               
+               
+        function subjFunction()
+               { 
+                   var year = document.getElementById("secsubjyear").value;
+                   var sem = document.getElementById("secsubjsem").value;
+                   var section = document.getElementById("secselect").value;
+                   var yearsem = document.getElementById("subjyearsem").value;
+                   var subjname = document.getElementById("subjnametxt").value;
+                   var subjcode= document.getElementById("subjcodetxt").value;
+                   var subjunit = document.getElementById("subjunittxt").value;
+                   var subjtime = document.getElementById("sectime1").value +":"+
+                             document.getElementById("sectime2").value + 
+                                  document.getElementById("sectimeAMPM").value
+                         +"-" + document.getElementById("sectime3").value +":"+
+                             document.getElementById("sectime4").value + 
+                                  document.getElementById("sectimeAMPM2").value;
+                   var subjroom = document.getElementById("subjroomtxt").value;
+                   var subjday = document.getElementById("subjdaytxt").value; 
+                   var code;
+                   if( subjname === "" || subjcode === "" || subjunit === "" ||  subjroom === "" || subjday === "" || section === "" )
+                       {
+                        
+                           alert("Please Complete all Fields")
+                       }
+                   else
+                       {
+                           
+                    
+                    db.collection("courses").get()
+                        .then(function(querySnapshot) {
+                        querySnapshot.forEach(function(doc) {
+                            if(section === doc.data().sectioncode)
+                        code = doc.data().progcode;
+                        });
+                       
+                   
+                        db.collection("subjects").doc(section+yearsem+subjcode).set({
+                        name: subjname,
+                        code: subjcode,
+                        day: subjday,
+                        year: year,
+                        room: subjroom,
+                        time: subjtime,
+                        section: section+"-"+yearsem,
+                        sem: sem,
+                        unit:subjunit 
+            
+            });
+                        alert("Added Successfully");
+                       
+                    });
+          
+                       }
+               }
+               
+               function subjcnlFunction()
+               {
+                   
+                   var secselect = document.getElementById("secselect");
+                   var secsubyear = document.getElementById("secsubjyear");
+                   var option1 = document.createElement("option");
+                   var option2 = document.createElement("option");           secsubyear.options.length = 0;
+                   option1.text="Grade 11";
+                   option2.text="Grade 12"; 
+                   secsubyear.add(option1);
+                   secsubyear.add(option2); 
+     
+        document.getElementById("secsubjsem").value = "1st";
+        document.getElementById("secselect").value = "ABM";
+        document.getElementById("subjyearsem").value = "";
+        document.getElementById("subjnametxt").value = "";
+        document.getElementById("subjcodetxt").value = "";
+        document.getElementById("subjunittxt").value = "";
+        document.getElementById("sectime1").value =  "09";
+        document.getElementById("sectime2").value = "59";  
+        document.getElementById("sectimeAMPM").value= "AM";  
+        document.getElementById("sectime3").value =  "09";  
+        document.getElementById("sectime4").value= "59";  
+        document.getElementById("sectimeAMPM2").value=  "09"; 
+        document.getElementById("subjroomtxt").value = "";
+        document.getElementById("subjdaytxt").value = ""; 
+        document.getElementById("subjproc").style.display = "inline";
+        document.getElementById("subjedit").style.display = "none";
+        document.getElementById("subjsave").style.display = "none";
+               }
+                function subjsaveFunction()
+               {
+                    db.collection("subjects").doc(tempappid).delete();
+                   var year = document.getElementById("secsubjyear").value;
+                   var sem = document.getElementById("secsubjsem").value;
+                   var section = document.getElementById("secselect").value;
+                   var yearsem = document.getElementById("subjyearsem").value;
+                   var subjname = document.getElementById("subjnametxt").value;
+                   var subjcode= document.getElementById("subjcodetxt").value;
+                   var subjunit = document.getElementById("subjunittxt").value;
+                   var subjtime = document.getElementById("sectime1").value +":"+
+                             document.getElementById("sectime2").value + 
+                                  document.getElementById("sectimeAMPM").value
+                         +"-" + document.getElementById("sectime3").value +":"+
+                             document.getElementById("sectime4").value + 
+                                  document.getElementById("sectimeAMPM2").value;
+                   var subjroom = document.getElementById("subjroomtxt").value;
+                   var subjday = document.getElementById("subjdaytxt").value; 
+                   var code;
+                   if( subjname === "" || subjcode === "" || subjunit === "" ||  subjroom === "" || subjday === "" || section === "" )
+                       {
+                        
+                           alert("Please Complete all Fields")
+                       }
+                   else
+                       {
+                           
+                    
+                    db.collection("courses").get()
+                        .then(function(querySnapshot) {
+                        querySnapshot.forEach(function(doc) {
+                            if(section === doc.data().sectioncode)
+                        code = doc.data().progcode;
+                        });
+                       
+                   
+                        db.collection("subjects").doc(section+yearsem+subjcode).set({
+                        name: subjname,
+                        code: subjcode,
+                        day: subjday,
+                        year: year,
+                        room: subjroom,
+                        time: subjtime,
+                        section: section+"-"+yearsem,
+                        sem: sem,
+                        unit:subjunit 
+            
+            });
+                        alert("Edited Successfully");
+                       
+                    });
+          
+                       }
+                                var secselect = document.getElementById("secselect");
+                   var secsubyear = document.getElementById("secsubjyear");
+                   var option1 = document.createElement("option");
+                   var option2 = document.createElement("option");           secsubyear.options.length = 0;
+                   option1.text="Grade 11";
+                   option2.text="Grade 12"; 
+                   secsubyear.add(option1);
+                   secsubyear.add(option2); 
+     
+        document.getElementById("secsubjsem").value = "1st";
+        document.getElementById("secselect").value = "ABM";
+        document.getElementById("subjyearsem").value = "";
+        document.getElementById("subjnametxt").value = "";
+        document.getElementById("subjcodetxt").value = "";
+        document.getElementById("subjunittxt").value = "";
+        document.getElementById("sectime1").value =  "09";
+        document.getElementById("sectime2").value = "59";  
+        document.getElementById("sectimeAMPM").value= "AM";  
+        document.getElementById("sectime3").value =  "09";  
+        document.getElementById("sectime4").value= "59";  
+        document.getElementById("sectimeAMPM2").value=  "09"; 
+        document.getElementById("subjroomtxt").value = "";
+        document.getElementById("subjdaytxt").value = ""; 
+        document.getElementById("subjproc").style.display = "inline";
+        document.getElementById("subjedit").style.display = "none";
+        document.getElementById("subjsave").style.display = "none";
+               
+                   
+               }
+               function subjChange()
+               {
+                   var secselect = document.getElementById("secselect");
+                   var secsubyear = document.getElementById("secsubjyear");
+                   var option1 = document.createElement("option");
+                   var option2 = document.createElement("option");
+                   var option3= document.createElement("option");
+                   var option4= document.createElement("option");
+                   var option5= document.createElement("option");
+               
+                 var option7= document.createElement("option");
+                   
+        if(secselect.value === "ABM" ||
+          secselect.value === "STEM" ||
+          secselect.value === "HUMSS" ||
+          secselect.value === "GA"  )
+            {
+                secsubyear.options.length = 0;
+                option1.text="Grade 11";
+                option2.text="Grade 12";
+        
+                secsubyear.add(option1);
+                secsubyear.add(option2);
+           
+            }
+            else
+            {
+                secsubyear.options.length = 0;
+                option1.text="1st Year";
+                option2.text="2nd Year";
+                option3.text="3rd Year";
+                option4.text="4th Year";
+                option5.text="5th Year";
+                secsubyear.add(option1);
+                secsubyear.add(option2);
+                secsubyear.add(option3);
+                secsubyear.add(option4);
+                secsubyear.add(option5);
+            }
+        }
+           </script>
+           
+           <script>
+               function cnlreg()
+               {
+                
+                   document.getElementById('codetempdiv').style.display ="none";
+                   document.getElementById('codetempdiv2').style.display ="block";
+          
+                   document.getElementById('txtcode').value = "";
+                   document.getElementById('txtname').value = "";
+                   document.getElementById('txtedituser').value = "";
+                   document.getElementById('txteditpass').value = "";
+                    
+               }
+                function savereg()
+               {                
+                   var name = document.getElementById('txtname').value ;
+                   var user = document.getElementById('txtedituser').value ;
+                   var pass =document.getElementById('txteditpass').value ;
+                        db.collection("registrar").doc(tempregid).set({
+                        code: tempregid,
+                        name: name,
+                        username: user,
+                        password: pass
+            
+            });
+                        alert("Edited Successfully");
+                   document.getElementById('codetempdiv').style.display ="none";
+                   document.getElementById('codetempdiv2').style.display ="block";
+                   document.getElementById('txtcode').value = "";
+                   document.getElementById('txtname').value = "";
+                   document.getElementById('txtedituser').value = "";
+                   document.getElementById('txteditpass').value = "";
+                   
+                   
+                    
+               }
+         function addreg()
+               {
+                        var regname = "";
+                   
+                   var txtlast = document.getElementById("txtreglast").value;
+                   var txtfirst = document.getElementById("txtregfirst").value;
+                   var txtmiddle = document.getElementById("txtregmiddle").value;
+                 var txtuser = document.getElementById("txtuser").value;
+                   var txtpass = document.getElementById("txtpass").value;
+                   if(txtlast === "" || txtfirst === "" ||  txtuser === "" || txtpass === "")
+                       {
+                           alert("Please complete all fields");
+                       }
+                   else
+                       {
+                             
+                               if(txtmiddle == "")
+                                   {
+                                        regname =   txtfirst + " " + txtlast; 
+                                   }
+                         else
+                              {
+                                 regname = txtfirst + " " + txtmiddle + "." + " " + txtlast; 
+                            }
+                    var d = new Date();
+                    var n = d.getFullYear();
+                var matches = regname.match(/\b(\w)/g); // ['J','S','O','N']
+    	       var acronym = matches.join(''); // JSON
+                    var code = acronym + "-" + n;
+                           
+                        db.collection("registrar").doc(code).set({
+                        code: code,
+                        name: regname,
+                        username: txtuser,
+                        
+                        password: txtpass
+            
+            });
+                           alert("Added Successfully");
+                           
+                    document.getElementById("txtreglast").value = "";
+                    document.getElementById("txtregfirst").value = "";
+                    document.getElementById("txtregmiddle").value = "";
+                    document.getElementById("txtuser").value = "";
+                    document.getElementById("txtpass").value = "";
+                           
+                       }
+                       }
+             
+                   
+           
+           
+           </script>
+           
+           
+    </body>
+</html>
+
